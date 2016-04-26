@@ -12,8 +12,9 @@ source virtualenv/bin
 
 2. Install dependencies
 ```sh
+pip install pylint
 sudo apt-get install python-pygame
 ```
 
-# Launch game
+## Launch game
 ```sh
