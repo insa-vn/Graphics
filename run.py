@@ -7,9 +7,15 @@ from graphics.sprites.deck import Deck
 from graphics.sprites.character import Character
 from graphics.constants import (SCREEN_SIZE, BACKGROUND, ORIGIN, LEFT_MOUSE)
 from graphics.sprites.card_overview import CardOverview
+from graphics.lib.spritestripanim import SpriteStripAnim
 
 __CURDIR__ = os.path.dirname(os.path.realpath(__file__)) + '/'
-__GRAPHICSDIR__ = __CURDIR__ + '/graphics/'
+__GRAPHICSDIR__ = __CURDIR__ + 'graphics/'
+
+shooting_spritesheet = __GRAPHICSDIR__ + 'img/shooting_spritesheet.png'
+FPS = 120
+frames = FPS / 12
+
 def initialize():
     global window
     pg.init()
@@ -24,10 +30,17 @@ def get_background():
 def set_background():
     window.blit(bg_img, ORIGIN)
 
-
+clock = pg.time.Clock()
 if __name__ == '__main__':
 
     initialize()
+    strips = [
+        SpriteStripAnim(shooting_spritesheet, (0,0,400,620), 6, -1, True, frames)
+    ]
+
+    n = 0
+    strips[n].iter()
+    shooting_image = strips[n].next()
     bg_img = get_background()
 
     my_deck = Deck()
@@ -38,7 +51,7 @@ if __name__ == '__main__':
     card4 = Card(__GRAPHICSDIR__ + 'img/missed.png')
     card5 = Card(__GRAPHICSDIR__ + 'img/Trang.png')
 
-    overview_card = CardOverview(__GRAPHICSDIR__ + 'img/card_highlight.png')
+    overview_card = CardOverview(__GRAPHICSDIR__ + 'img/back-playing.png')
 
     my_deck.get_card(card1)
     my_deck.get_card(card2)
@@ -69,4 +82,8 @@ if __name__ == '__main__':
                         overview_card.update_img(
                             __GRAPHICSDIR__ + 'img/molly_stark.png', window)
 
+
+        window.blit(shooting_image, (250 ,0))
         pg.display.flip()
+        shooting_image = strips[n].next()
+        clock.tick(FPS)
