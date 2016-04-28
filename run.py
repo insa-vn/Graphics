@@ -16,6 +16,7 @@ shooting_spritesheet = __GRAPHICSDIR__ + 'img/shooting_spritesheet.png'
 FPS = 120
 frames = FPS / 12
 
+
 def initialize():
     global window
     pg.init()
@@ -27,6 +28,7 @@ def get_background():
     bg_img = pg.transform.smoothscale(bg_img, SCREEN_SIZE)
     return bg_img
 
+
 def set_background():
     window.blit(bg_img, ORIGIN)
 
@@ -35,7 +37,7 @@ if __name__ == '__main__':
 
     initialize()
     strips = [
-        SpriteStripAnim(shooting_spritesheet, (0,0,400,620), 6, -1, True, frames)
+        SpriteStripAnim(shooting_spritesheet, (0, 0, 400, 620), 6, -1, True, frames)
     ]
 
     n = 0
@@ -82,8 +84,7 @@ if __name__ == '__main__':
                         overview_card.update_img(
                             __GRAPHICSDIR__ + 'img/molly_stark.png', window)
 
-
-        window.blit(shooting_image, (250 ,0))
+        window.blit(shooting_image, (250, 0))
         pg.display.flip()
         shooting_image = strips[n].next()
         clock.tick(FPS)

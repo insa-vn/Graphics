@@ -1,5 +1,6 @@
 import pygame as pg
 
+
 class Deck(pg.sprite.OrderedUpdates):
 
     def __init__(self):
@@ -31,9 +32,9 @@ class Deck(pg.sprite.OrderedUpdates):
         for i in xrange(len(self)):
             if self[i].collide_point(pos) and (i == len(self)-1 or not self[i+1].collide_point(pos)):
                 self[i].shift_up() if not self[i].clicked else None
-                return self[i]
             elif (not self[i].collide_point(pos) or self[i+1].collide_point(pos)) and self[i].clicked:
                 self[i].shift_down()
+
     def display_all_cards(self, surface):
         for i in iter(self):
             surface.blit(i.image, i.img_rect)
